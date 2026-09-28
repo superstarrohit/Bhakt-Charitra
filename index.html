@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bhakt Charitra</title>
+<meta name="description" content="Stories of the Lord's devotees, told as comics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Kalam:wght@400;700&family=Hind:wght@400;500;600&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --paper: #f2ead8;
+  --paper-dot: rgba(120, 70, 20, .08);
+  --surface: #fffaf0;
+  --ink: #1b1622;
+  --text: #2a2230;
+  --muted: #6b5d52;
+  --saffron: #d9661a;
+  --kumkum: #b12f27;
+  --haldi: #f2c230;
+  --cap: #fbe38c;
+  --cap-ink: #1b1622;
+  --frame: #1b1622;
+  --display: 'Rozha One', 'Noto Serif Devanagari', Georgia, serif;
+  --letter: 'Kalam', 'Comic Sans MS', 'Segoe Print', cursive;
+  --body: 'Hind', 'Noto Sans Devanagari', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #16131d;
+    --paper-dot: rgba(255, 210, 120, .05);
+    --surface: #221e2b;
+    --text: #efe6d4;
+    --muted: #b3a690;
+    --saffron: #f08a3c;
+    --kumkum: #e0685c;
+    --frame: #07060a;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #16131d;
+  --paper-dot: rgba(255, 210, 120, .05);
+  --surface: #221e2b;
+  --text: #efe6d4;
+  --muted: #b3a690;
+  --saffron: #f08a3c;
+  --kumkum: #e0685c;
+  --frame: #07060a;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image: radial-gradient(var(--paper-dot) 1px, transparent 1.2px);
+  background-size: 6px 6px;
+  color: var(--text);
+  font: 17px/1.6 var(--body);
+}
+#app { max-width: 980px; margin: 0 auto; padding: 24px 16px 64px; }
+a { color: inherit; }
+a:focus-visible { outline: 3px solid var(--saffron); outline-offset: 3px; }
+
+.eyebrow { margin: 0; font: 600 13px/1.4 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--saffron); }
+h1 { margin: 6px 0 12px; line-height: 1; text-wrap: balance; }
+h1 .deva { display: block; font: 400 clamp(52px, 11vw, 104px)/1.05 var(--display); color: var(--kumkum); }
+h1 .latin { display: block; font: 400 clamp(24px, 4vw, 34px)/1.2 var(--display); color: var(--text); margin-top: 4px; }
+h2 { font: 400 26px/1.2 var(--display); margin: 0; text-wrap: balance; }
+.deva-sm { font-family: var(--display); color: var(--saffron); font-size: .8em; margin-left: .3em; }
+
+/* ---------- home ---------- */
+.mast { padding-block: 24px 8px; border-bottom: 4px solid var(--frame); margin-bottom: 28px; }
+.mast .lede { max-width: 62ch; color: var(--text); margin: 8px 0 20px; }
+.shelf { margin-bottom: 44px; }
+.shelf-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin-bottom: 16px; }
+.shelf-head p { margin: 0; color: var(--muted); }
+.covers { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.cover {
+  display: flex; flex-direction: column; text-decoration: none;
+  background: var(--surface); border: 3px solid var(--frame);
+  box-shadow: 6px 6px 0 var(--frame);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.cover:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--frame); }
+.cover-art { aspect-ratio: 400 / 275; border-bottom: 3px solid var(--frame); overflow: hidden; }
+.cover-art svg { display: block; width: 100%; height: 100%; }
+.cover-band { display: grid; gap: 2px; padding: 12px 14px 14px; }
+.cover-hi { font: 400 15px/1.3 var(--display); color: var(--kumkum); }
+.cover-title { font: 400 24px/1.1 var(--display); color: var(--text); }
+.cover-tag { font: 400 17px/1.3 var(--letter); color: var(--text); }
+.cover-meta { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.note { max-width: 70ch; border-top: 4px solid var(--frame); padding-top: 18px; }
+.note h2 { font-size: 22px; margin-bottom: 6px; }
+.note p { color: var(--muted); margin: 0; }
+
+/* ---------- story ---------- */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  display: flex; justify-content: space-between; align-items: center;
+  margin: -24px -16px 16px; padding: 10px 16px;
+  background: var(--paper); border-bottom: 3px solid var(--frame);
+  font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.back { text-decoration: none; color: var(--saffron); }
+.story-head { margin-bottom: 20px; }
+.tagline { font: 400 22px/1.3 var(--letter); margin: 0; }
+.src { color: var(--muted); font-size: 14px; margin: 6px 0 0; }
+
+.page {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  background: var(--frame); border: 6px solid var(--frame); padding: 0;
+}
+.panel { margin: 0; background: #fffaf0; display: flex; flex-direction: column; min-width: 0; }
+.panel.wide { grid-column: 1 / -1; }
+.cap {
+  background: var(--cap); color: var(--cap-ink);
+  border-bottom: 3px solid var(--ink);
+  padding: 8px 12px; font: 500 15.5px/1.45 var(--body); flex: 1;
+}
+.pn {
+  display: inline-grid; place-items: center; min-width: 1.6em; height: 1.6em; margin-right: 8px;
+  background: var(--ink); color: var(--cap); border-radius: 50%;
+  font: 600 12px/1 var(--body); vertical-align: 2px; font-variant-numeric: tabular-nums;
+}
+.art { position: relative; aspect-ratio: 400 / 275; overflow: hidden; }
+.art-wide { aspect-ratio: 800 / 275; }
+.art svg { display: block; width: 100%; height: 100%; }
+.sfx { font-family: var(--display); letter-spacing: 1px; }
+
+.bubbles {
+  position: absolute; inset: 8px 10px auto 10px;
+  display: flex; flex-direction: column; gap: 14px; pointer-events: none;
+}
+.bubble {
+  position: relative; margin: 0; max-width: 64%;
+  background: #fff; color: #1b1622; border: 2.5px solid #1b1622; border-radius: 18px;
+  padding: 6px 12px; font: 400 15px/1.3 var(--letter);
+}
+.art-wide .bubble { max-width: 42%; }
+.bubble::after {
+  content: ''; position: absolute; bottom: -12px; width: 14px; height: 14px;
+  background: inherit; border-right: 2.5px solid #1b1622; border-bottom: 2.5px solid #1b1622;
+  transform: skewX(24deg) rotate(45deg); left: 22%;
+}
+.side-l { align-self: flex-start; }
+.side-c { align-self: center; }
+.side-r { align-self: flex-end; }
+.side-c::after { left: calc(50% - 7px); }
+.side-r::after { left: auto; right: 22%; transform: skewX(-24deg) rotate(45deg); }
+.bubble.shout { font-weight: 700; border-width: 3.5px; border-radius: 6px; background: #fff; box-shadow: 3px 3px 0 #b12f27; }
+.bubble.thought { border-style: dashed; border-radius: 26px; background: #f7f3ff; }
+.bubble.thought::after { width: 10px; height: 10px; border: 2.5px dashed #1b1622; border-radius: 50%; transform: none; bottom: -16px; }
+.bubble.divine { background: linear-gradient(#fff6c8, #ffe07a); border-color: #9c6a10; box-shadow: 0 0 0 3px rgba(255, 224, 122, .5); font-weight: 700; }
+.bubble.divine::after { border-color: #9c6a10; background: #ffe07a; }
+
+.lesson {
+  margin: 28px 0 0; padding: 20px 22px;
+  background: var(--surface); border: 3px solid var(--frame); box-shadow: 6px 6px 0 var(--saffron);
+}
+.lesson p { margin: 10px 0 0; max-width: 65ch; font-size: 18px; }
+.lesson .jai { font: 400 18px/1 var(--display); color: var(--kumkum); }
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+.pager a {
+  display: grid; gap: 2px; padding: 12px 16px; text-decoration: none;
+  border: 3px solid var(--frame); background: var(--surface); font: 400 20px/1.2 var(--display);
+}
+.pager a small { font: 600 12px/1.2 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.pager .next { text-align: right; }
+.pager a:hover { background: var(--cap); color: var(--cap-ink); }
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .page { grid-template-columns: 1fr; gap: 8px; border-width: 4px; }
+  .art-wide { aspect-ratio: 560 / 275; }
+  .art-wide .bubble { max-width: 60%; }
+  .bubble { font-size: 14px; padding: 5px 10px; }
+  .cap { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) { .cover { transition: none; } }
+</style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+<script src="js/art.js"></script>
+<script src="js/stories.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
